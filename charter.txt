@@ -1,0 +1,25 @@
+<Coders>
+
+
+1. Availability for meeting expectations: Monday(8:15pm), Tuesday (Lab Could Change), Friday (8:15pm). Roughly an hour meeting. First strike talk about at the next meeting, second strike bring up to TA. Shouldn't be later than 20 minutes.
+Phone usage doesn't matter as long as your listening, food and drink doesn't matter.
+
+2. Response time to communication expectations: For official responses regarding the project, all members must reply within 24 hours on the discord general chat. 
+
+3. Definition of done: when is a task complete? (hint: "I'm done with that but I didn't check it in to github" is not done.): When a pull request is reviewed and merged to main it is done.
+
+4. Scrum meeting format/frequency and distribution of documentation tasks (meeting minutes, updating task board)
+  Meeting Format: Each person should talk about the tasks they are working on/completed for this week, person should talk about what tasks they are signing
+  up for this week, provide simple feedback on what has been completed/inprogress, Q/A.
+  Meeting Minutes: Nathan Edwards
+  Update Task Board (Weekly Rotation): Matt, Rory, Nathan, Andy
+
+5. Procedure for adopting policies (e.g. code style, code check-in steps, documentation updates)
+if you adopt such a policy during the initial meeting, put it here: 2 members must approve pull request and must provide a comment on something good/or needs improvement, lowercase 
+
+6. Procedure for handling a member who is not meeting expectations must include at least 3 actions before involving the instructor: Send an email, talk to him at the next meeting, or send a message directly to him, Discord: https://discord.gg/eezkWpsT 
+Signatures:
+Rory-Michael K. Christlieb
+Nathan Edwards
+Matt Kretsch
+Andrew Lien
