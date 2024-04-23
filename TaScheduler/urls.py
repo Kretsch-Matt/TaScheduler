@@ -20,7 +20,6 @@ from scheduler import views
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
-
 from scheduler.views import AdminAccManagement
 
 urlpatterns = [
@@ -29,6 +28,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/accounts/login/', permanent=True)),
     path('home/', views.home, name='home'),
     path('courseManagement/', views.courseManagement, name='courseManagement'),
-    path('logout/', auth_views.LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
     path('adminAccManagement/', AdminAccManagement.as_view(), name='adminAccManagement'),
+
 ]

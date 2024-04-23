@@ -6,11 +6,15 @@ from pip._vendor.requests.models import Response
 import adminAssignmentPage
 from .models import CourseTable, UserTable, LabTable
 
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='login')
 def home(request):
     return render(request, 'home.html')
 
 
+@login_required(login_url='login')
 def courseManagement(request):
     courses = CourseTable.objects.all()
     TAs = UserTable.objects.filter(userType="TA")
@@ -32,9 +36,13 @@ def courseManagement(request):
             courseCreated = admin_page.createCourse(courseName, instructor)
 
             if courseCreated:
-                return render(request, 'courseManagement.html', {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs, 'messages': "Course successfully created"})
+                return render(request, 'courseManagement.html',
+                              {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs,
+                               'messages': "Course successfully created"})
             else:
-                return render(request, 'courseManagement.html', {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs, 'messages': "Course failed to be created"})
+                return render(request, 'courseManagement.html',
+                              {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs,
+                               'messages': "Course failed to be created"})
 
             return redirect('courseManagement')
         return render(request, 'courseManagement.html')
