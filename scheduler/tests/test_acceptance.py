@@ -3,13 +3,14 @@ from unittest import TestCase
 from django.test import RequestFactory
 from django.contrib.auth.models import User
 from django.urls import reverse
+import django
 
 from adminAssignmentPage import AdminAssignmentPage
 from scheduler.models import UserTable, CourseTable, LabTable
 from scheduler.views import AdminAccManagement
 
 
-class TestDeleteAccountACCEPTANCE(TestCase):
+class TestDeleteAccountACCEPTANCE(django.test.TestCase):
     def __init__(self, methodName: str = "runTest"):
         super().__init__(methodName)
         self.client = None
@@ -57,24 +58,28 @@ class TestDeleteAccountACCEPTANCE(TestCase):
         request = RequestFactory().post(reverse('adminAccManagement'))
         request.user = self.user1Account
 
-        request.POST['deleteAccountName'] = 'deleteTest'  # Provide username to delete
-        request.POST['deleteAccountEmail'] = 'deleteTest@gmail.com'  # Provide email to delete
-        request.POST['deleteAccBtn'] = 'Delete'  # Simulate button click
+        requestCopy = request.POST.copy()
+        requestCopy['deleteAccountName'] = 'deleteTest'
+        requestCopy['deleteAccountEmail'] = 'deleteTest@gmail.com'
+        requestCopy['deleteAccBtn'] = 'Delete'
+
+        request.POST = requestCopy
 
         response = AdminAccManagement.as_view()(request)
 
-        # Check if the account is deleted successfully (assuming your deleteAccount method returns True on success)
-        assert 'Account deleted successfully' in response.content.decode('utf-8')
+        self.assertContains(response, 'Account deleted successfully')
 
     def test_adminAccManagement_DeleteNotExist(self):
         request = RequestFactory().post(reverse('adminAccManagement'))
         request.user = self.user1Account
 
-        request.POST['deleteAccountName'] = 'NoAcc'  # Provide username to delete
-        request.POST['deleteAccountEmail'] = 'notReal@gmail.com'  # Provide email to delete
-        request.POST['deleteAccBtn'] = 'Delete'  # Simulate button click
+        requestCopy = request.POST.copy()
+        requestCopy['deleteAccountName'] = 'NoAcc'  # Provide username to delete
+        requestCopy['deleteAccountEmail'] = 'notReal@gmail.com'  # Provide email to delete
+        requestCopy['deleteAccBtn'] = 'Delete'  # Simulate button click
+
+        request.POST = requestCopy
 
         response = AdminAccManagement.as_view()(request)
 
-        # Check if the account is deleted successfully (assuming your deleteAccount method returns True on success)
-        assert 'Failed to delete account' in response.content.decode('utf-8')
+        self.assertContains(response, 'Failed to delete account')
