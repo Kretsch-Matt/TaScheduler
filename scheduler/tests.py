@@ -138,7 +138,6 @@ class TestCreateCourseAcc(TestCase):
             'courseName': 'New Course',
             'instructorSelect': instructor.id,
             'createCourseBtn': 'Submit',  # button used
-
         }
         response = self.client.post(reverse('courseManagement'), data)
         self.assertEqual(response.status_code, 200)
