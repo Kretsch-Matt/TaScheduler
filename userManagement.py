@@ -23,8 +23,11 @@ class UserManagementPage:
             # Retrieve the TA based on ID
             ta = UserTable.objects.get(pk=ta_id, userType='ta')
 
+            # Ensure that skills is not None
+            current_skills = ta.skills or ""
+
             # Check if the skill already exists
-            if skill.lower() in (existing_skill.lower() for existing_skill in ta.skills.split(',')):
+            if skill.lower() in (existing_skill.lower() for existing_skill in current_skills.split(',')):
                 return False, "This skill is already assigned to the TA."
 
             # Add the new skill
@@ -40,3 +43,4 @@ class UserManagementPage:
             return False, "TA not found or not eligible."
         except Exception as e:
             return False, f"An unexpected error occurred: {str(e)}"
+
