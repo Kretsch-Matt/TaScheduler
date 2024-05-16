@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+    <link rel="stylesheet" href="{% static 'css/courseManagement.css' %}">
+</head>
+<body>
+    <!--Navigation Menu-->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="#">Notifications</a></li>
+                <li><a href="{% url 'taCourseManagement' %}">Course Management</a></li>
+                <li><a href="{% url 'adminAccManagement' %}">Account Management</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+        <div class="dateContainer">
+            <div class="clock">12:00 PM</div>
+            <span>April 13, 2024</span>
+        </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- TA Skills Section -->
+        <section>
+            <h2 class="menuTitle">TA Skills</h2>
+            <div class="menuBoxMid">
+                {% if TAs %}
+                    <form method="post" action="{% url 'taCourseManagement' %}">
+                        {% csrf_token %}
+                        <label for="taId">TA:</label>
+                        <select name="taId" id="taId" required>
+                            <option value="">Select a TA</option>
+                            {% for ta in TAs %}
+                                <option value="{{ ta.id }}">{{ ta.firstName }} {{ ta.lastName }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="skillName">Skill:</label>
+                        <input type="text" id="skillName" name="skillName" placeholder="Enter skill" required>
+                        <input type="submit" name="addSkillBtn" value="Assign Skill" class="submit-btn">
+                    </form>
+                    <table border="1" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th>TA Name</th>
+                                <th>Skills</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ta in TAs %}
+                                <tr>
+                                    <td>{{ ta.firstName }} {{ ta.lastName }}</td>
+                                    <td>{{ ta.skills }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No TAs available</p>
+                {% endif %}
+                <div class="messages">
+                    {% for message in messages %}
+                        {% if 'skill_assign' in message.tags %}
+                            <div class="{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

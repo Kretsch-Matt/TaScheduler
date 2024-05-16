@@ -18,6 +18,8 @@
                     <li><a href="{% url 'courseManagement' %}">Course Management</a></li>
                 {% elif userType == 'instructor' %}
                     <li><a href="{% url 'insCourseManagement' %}">Course Management</a></li>
+                {% elif userType == 'ta' %}
+                    <li><a href="{% url 'taCourseManagement' %}">Course Management</a></li>
                 {% endif %}
                 <li><a href="{% url 'adminAccManagement' %}">Account Management</a></li>
                 <li><a href="#">Settings</a></li>
