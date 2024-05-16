@@ -39,13 +39,6 @@
                 {% if TAs %}
                     <form method="post" action="{% url 'taCourseManagement' %}">
                         {% csrf_token %}
-                        <label for="taId">TA:</label>
-                        <select name="taId" id="taId" required>
-                            <option value="">Select a TA</option>
-                            {% for ta in TAs %}
-                                <option value="{{ ta.id }}">{{ ta.firstName }} {{ ta.lastName }}</option>
-                            {% endfor %}
-                        </select>
                         <label for="skillName">Skill:</label>
                         <input type="text" id="skillName" name="skillName" placeholder="Enter skill" required>
                         <input type="submit" name="addSkillBtn" value="Assign Skill" class="submit-btn">

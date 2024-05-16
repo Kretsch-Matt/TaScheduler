@@ -204,12 +204,13 @@ class TACourseManagement(View):
             # Redirect non-admin users to another page (e.g., home page)
             return redirect('home')
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         if 'addSkillBtn' in request.POST:
-            ta_id = request.POST.get('taId')
+            userTable = UserTable.objects.get(email=request.user.email)
             skill = request.POST.get('skillName')
 
-            success, message = UserManagementPage.add_skill_to_ta(ta_id, skill)
+            success, message = UserManagementPage.add_skill_to_ta(userTable.id, skill)
 
             if success:
                 messages.success(request, message, extra_tags='skill_assign')
