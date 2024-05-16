@@ -6,23 +6,22 @@ from pip._vendor.requests.models import Response
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-
 import adminAccountManagement, adminSectionManagement
 from ProfilePage import ProfilePage
 from adminAccountManagement import AdminAccountManagementPage
-import adminAssignmentPage, adminCourseManagement, adminSectionManagement
+import adminCourseManagement, adminSectionManagement
 from adminCourseManagement import AdminCourseManagementPage
 from instructorCourseManagement import InstructorCourseManagementPage
 from userManagement import UserManagementPage
 from .models import CourseTable, UserTable, LabTable, UserCourseJoinTable, UserLabJoinTable, UserSectionJoinTable, \
     SectionTable
 
+
 @login_required(login_url='login')
 def home(request):
     user = request.user
     userType = UserTable.objects.get(email=user.email).userType
     return render(request, 'home.html', {'userType': userType})
-
 
 
 @login_required(login_url='login')
@@ -48,7 +47,6 @@ def profile(request):
             except ValueError as msg:
                 user_data = UserTable.objects.get(email=old_email)
                 return render(request, 'profile.html', {'user_data': user_data, 'messageEditProfile': str(msg)})
-
 
 
 @login_required(login_url='login')
@@ -96,7 +94,8 @@ def courseManagement(request):
 
                 # Create a new section object
                 try:
-                    msg = adminSectionManagement.AdminSectionManagementPage.createSection(sectionName, courseTable, time)
+                    msg = adminSectionManagement.AdminSectionManagementPage.createSection(sectionName, courseTable,
+                                                                                          time)
                     return render(request, 'courseManagement.html',
                                   {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs,
                                    'joinEntries': joinEntries, 'createMessages': msg})
@@ -173,7 +172,6 @@ def courseManagement(request):
                 labSection = request.POST.get('labSection')
                 courseSelect = request.POST.get('courseSelect')
 
-
                 try:
                     adminSMPage.createLabSection(courseSelect, labSection)
                     return render(request, 'courseManagement.html',
@@ -201,7 +199,6 @@ def courseManagement(request):
                     return render(request, 'courseManagement.html',
                                   {'courses': courses, 'TAs': TAs, 'instructors': instructors, 'labs': labs,
                                    'messages': str(msg)})
-
 
         return redirect('courseManagement')
 
@@ -307,7 +304,6 @@ class InsCourseManagement(View):
                 instructorId = request.POST.get('instructorSelect')
                 sectionId = request.POST.get('sectionSelect')
                 try:
-                    adminPage = adminAssignmentPage.AdminAssignmentPage()
                     msg = InstructorCourseManagementPage.assignInsToSection(sectionId, instructorId)
                     return render(request, 'insCourseManagement.html',
                                   {'TAs': TAs, 'userCourseId': userCourseId, 'createMessages': msg})
