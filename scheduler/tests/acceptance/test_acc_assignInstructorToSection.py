@@ -3,7 +3,6 @@ from django.test import RequestFactory
 from django.contrib.auth.models import User
 
 import scheduler.views
-from adminAssignmentPage import AdminAssignmentPage
 from scheduler.models import UserTable, CourseTable, UserCourseJoinTable, SectionTable, UserSectionJoinTable
 from django.test import TestCase
 from django.urls import reverse
@@ -16,8 +15,6 @@ class TestAssignInstructorToSection(TestCase):
         self.client = None
 
     def setUp(self):
-        self.app = AdminAssignmentPage()
-
         self.user1 = UserTable(firstName="adminTest", lastName="adminTest", email="adminTest@gmail.com",
                                phone="adminTest",
                                address="adminTest", userType="admin")

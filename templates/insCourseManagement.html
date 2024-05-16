@@ -59,7 +59,7 @@
                         <select id="instructorSelectFor" name="instructorSelect">
                             {% if instructors %}
                                 {% for instructor in instructors %}
-                                    <option value="{{ instructor.id }}">{{ instructor.userId.firstName}} {{instructor.userId.lastName }}</option>
+                                    <option value="{{ instructor.userId.id }}">{{ instructor.userId.firstName}} {{instructor.userId.lastName }}</option>
                                 {% endfor %}
                             {% else %}
                                 <option value="">First Select Course or No Sections Available</option>

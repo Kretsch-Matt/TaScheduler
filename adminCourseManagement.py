@@ -81,7 +81,7 @@ class AdminCourseManagementPage:
             if existingUserCourse:
                 raise ValueError("Course assignment already exists")
             UserCourseJoinTable.objects.create(courseId=course, userId=user)
-            return "Section created successfully"
+            return "Instructor assignment successful"
         except ObjectDoesNotExist:
             return "Failed to create section"
 

@@ -65,12 +65,6 @@ class AdminAccountManagementPage:
             if (account.email != user.email) | (usernameID != emailID):
                 return "username/email match error"
 
-            # Delete children
-            if user.userType == "ta":
-                LabTable.objects.filter(taId=user.id).delete()
-            elif user.userType == "instructor":
-                CourseTable.objects.filter(instructorId=user.id).delete()
-
             # Finally delete user...
             user.delete()
             # Delete the account

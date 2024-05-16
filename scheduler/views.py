@@ -302,6 +302,7 @@ class InsCourseManagement(View):
                                    'createMessages': msg})
             elif 'insToSectionBtn' in request.POST:
                 instructorId = request.POST.get('instructorSelect')
+                print(instructorId)
                 sectionId = request.POST.get('sectionSelect')
                 try:
                     msg = InstructorCourseManagementPage.assignInsToSection(sectionId, instructorId)
